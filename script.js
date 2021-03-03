@@ -7,8 +7,19 @@ const price = document.getElementById('price')
 let ticketPrice = +select.value
 
 //functions
+//save selected movie index and price
+const setMovieData = function(movieIndex, movieValue){
+    localStorage.setItem('movieIndex', movieIndex)
+    localStorage.setItem('movieValue', movieValue)
+}
+
 const priceCalculator = function(){
     const selectedSeats = document.querySelectorAll('.row .seat.selected')
+
+    const seatsIndex = [...selectedSeats].map(element => [...seats].indexOf(element))
+    
+    localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex))
+
     const selectedSeatCount = selectedSeats.length
     count.innerText = selectedSeatCount
     price.innerText = selectedSeatCount * ticketPrice
@@ -34,4 +45,5 @@ container.addEventListener('click', (e) => {
 //on select change event listener
 select.addEventListener('change', function(e){
     ticketPrice = e.target.value
+    setMovieData(e.target.selectedIndex, e.target.value)
 })
